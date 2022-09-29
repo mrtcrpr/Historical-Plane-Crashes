@@ -43,7 +43,67 @@ or [Total fatalities] is null
 or Circumstances is null
 or [Crash cause] is null
 
--- Yukarıdaki verileri silmeyi unutma
+-- All nullable rows in the data were eliminated.
+
+update PlaneCrashes
+set Aircraft = 'Unknown'
+where Aircraft is null
+
+update PlaneCrashes
+set Operator = 'Unknown'
+where Operator is null
+
+update PlaneCrashes
+set Registration = 'Unknown'
+where Registration is null
+
+update PlaneCrashes
+set [Flight phase] = 'Unknown'
+where [Flight phase] is null
+
+update PlaneCrashes
+set [Flight type] = 'Unknown'
+where [Flight type] is null
+
+update PlaneCrashes
+set Survivors = 'Unknown'
+where Survivors is null
+
+update PlaneCrashes
+set [Crash site] = 'Unknown'
+where [Crash site] is null
+
+update PlaneCrashes
+set Schedule = 'Unknown'
+where Schedule is null
+
+update PlaneCrashes
+set MSN = 'Unknown'
+where MSN is null
+
+update PlaneCrashes
+set YOM = 'Unknown'
+where YOM is null
+
+update PlaneCrashes
+set [Crash location] = 'Unknown'
+where [Crash location] is null
+
+update PlaneCrashes
+set Country = 'Unknown'
+where Country is null
+
+update PlaneCrashes
+set Region = 'Unknown'
+where Region is null
+
+update PlaneCrashes
+set Circumstances = 'Unknown'
+where Circumstances is null
+
+update PlaneCrashes
+set [Crash cause] = 'Unknown'
+where [Crash cause] is null
 
 -- Almost all of the columns have NA values. This need to be change with 'Unknown' value.  
 update PlaneCrashes
