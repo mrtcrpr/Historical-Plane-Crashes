@@ -5,12 +5,21 @@ Using the Notepad++ application, these special characters have been updated usin
 
 -- This table has 24 columns and 28.536 rows.
 select * from PlaneCrashes
+
 /*
-There are 2 columns over here. 
-These columns are hours and Flight No# columns. 
-This columns have a lot of null values and NA text. 
-We don't need this. This columns need to be delete.
+[Flight no#]
+This column have 1 distinct value. It's 'NA'.
+We don't need this column.
 */
+select distinct [Flight no#] from PlaneCrashes
+
+/*
+Time
+This column has a lot of null values. Also we don't need time values of this crashes for our analysis.
+*/
+select distinct Time from PlaneCrashes
+-- [Flight no#] and Time columns need to be deleted.
+
 
 -- This 2 columns deleted with alter table query.
 alter table PlaneCrashes
