@@ -63,7 +63,7 @@ or Circumstances = 'NA'
 or [Crash cause] = 'NA'
 
 /*
-Some YOM rows has insufficient data. 
+Some YOM rows have insufficient data. 
 This YOM column has year of model of these planes. 
 For this reason this planes model years wouldn't be ('21','31','943' .etc) 
 */
