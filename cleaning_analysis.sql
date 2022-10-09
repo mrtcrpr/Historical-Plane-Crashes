@@ -299,19 +299,85 @@ from PlaneCrashes)
 According to all records, a total of 158828 people lost their lives.
 */
 
+-- Let's dive in more deeper with our insights.
 
+------------------------------------------------------------------------------INSIGHTS---------------------------------------------------------------------------------
 
+/*
+1. My first insight is make a more think about dates. 
+Because dates are the key point our analysis.
+*/
 
+select 
+DATEPART(year from date),
+[Flight type],
+COUNT([Flight type])
+from PlaneCrashes
+group by DATEPART(year from date), [Flight type]
+order by count([Flight type]) desc
+/*
+It's more clear right now. We see 4 years top of our results.
+It's 1945, 1944, 1943 and 1942. 
+It was the time of World War II.
+In this years have 4 military flighting and 1 training values. 
+There are 1.209 different values for military flighting and 213 training values.
+*/
 
+/*
+2. Let's talk about crash causes. If we understand crash cause problems, 
+we can answer why the crashes did happen? 
+Technical failure, weather, human factor or what. We need this answer.
+*/
 
+select 
+[Crash cause],
+count(*)
+from PlaneCrashes
+group by [Crash cause]
+order by count(*) desc
+/*
+As you can see over here, there are 6 different problems meet us.
+Unknown, human factor, technical failure, weather, sabotage and other causes.
+As might be expected unknown causes are really much. They 10.051 rows.
+We can't talk about unknown problems, because we don't have too much information about they.
+Let's talk about human factors and technical failures.
 
+Human factors have 9.145 different rows.
+Technical failures have 5.964 different rows.
 
+Let's more dive in for technical features.
+*/
 
+select 
+Aircraft,
+count(*)
+from PlaneCrashes
+where [Crash cause] = 'Technical failure'
+group by Aircraft
+order by count(*) desc
 
+/*
+We searched which aircraft made a crash for technical failures.
+I share first 3 values right now. But ı will share all of them in my visualization.
+First aircraft is Douglas C-47 Skytrain (DC-3) and it has 436 different crashes. This plane is type of military transport aircraft.
+Second aircraft is Curtiss C-46 Commando and it has 200 different crashes. Also this plane too military transport aircraft.
+Last plane is PZL-Mielec AN-2 and it has 180 different crashes. And this plane is type of agricultural plane.
+*/
 
-
-
-
+select 
+operator,
+count(*)
+from PlaneCrashes
+where Aircraft = 'Douglas C-47 Skytrain (DC-3)'
+group by Operator
+order by count(*) desc
+/*
+I would like to investigate a little more about the Douglas C-47 Skytrain (DC-3) aircraft, which is at the top of our list. 
+Let's look at 3 operators that have this aircraft in their inventory.
+First is United States Army Air Forces - USAAF and they have 414 aircrafts of this model.
+Second is United States Air Force - USAF and they have 225 aircrafts.
+Last one is Royal Air Force - RAF and they have 185 aircrafts.
+*/
 
 
 
