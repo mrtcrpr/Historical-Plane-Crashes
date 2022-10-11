@@ -152,6 +152,18 @@ or [PAX fatalities] is null
 or [Other fatalities] is null
 or [Total fatalities] is null
 
+/*
+Also ı noticed inssuficient value in 1 row. 
+This data contained YOM data from 1900. 
+I searched this crash on the internet and ı found original values in this site.
+https://aviation-safety.net/database/record.php?id=20080901-1
+And YOM data that should be belong to 1990.
+I fixed this situation.
+*/
+update PlaneCrashes
+set YOM = '1990'
+where YOM = '1900'
+
 ------------------------------------------------------------------------------ANALYSIS---------------------------------------------------------------------------------
 
 -- For creating a true insight we need to get answer 8 questions. This questions really helpful for our analysis.
@@ -374,12 +386,35 @@ order by count(*) desc
 /*
 I would like to investigate a little more about the Douglas C-47 Skytrain (DC-3) aircraft, which is at the top of our list. 
 Let's look at 3 operators that have this aircraft in their inventory.
-First is United States Army Air Forces - USAAF and they have 414 aircrafts of this model.
+First is United States Army Air Forces - USAAF and they have 414 aircrafts of this model. This operator changed it's name to USAF in September 26, 1947.
 Second is United States Air Force - USAF and they have 225 aircrafts.
 Last one is Royal Air Force - RAF and they have 185 aircrafts.
 */
 
+/*
+3. By combining the model years of the crashed planes with technical reasons, 
+it can be measured how much accident the new or old generation planes cause. 
+Thus, including which airline companies the planes belong to,
+the insight may arise that these companies should replace their aircraft in the inventory with new generation aircraft.
+*/
 
+select 
+Gen,
+count(*)
+from(
+select 
+Aircraft,
+YOM,
+case when YOM >= '1990' then 'New Generation' 
+else 'Old Generation' end as Gen
+from PlaneCrashes
+where [Crash cause] = 'Technical failure' and YOM != 'Unknown') Generations
+group by Gen
+/*
+I did a research and came to the conclusion that the airplanes produced after 1990 are the new generation. 
+It would be correct to call the others the old generation.
+According to the query I made, there are accident data for 209 new generation and 4692 old generation aircraft.
+*/
 
 
 
