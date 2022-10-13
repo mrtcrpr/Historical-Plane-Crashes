@@ -399,7 +399,7 @@ the insight may arise that these companies should replace their aircraft in the 
 */
 
 select count(*)
-from Plane
+from PlaneCrashes
 where [Crash cause] = 'Technical failure'
 /*
 As you can see that there are 5.964 different crashes for technical failure reason.
@@ -413,7 +413,7 @@ from
 (select 
 Operator,
 case when YOM >= '1990' Then 'New' else 'Old' end as Gen
-from Plane
+from PlaneCrashes
 where [Crash cause] = 'Technical failure' and YOM != 'Unknown') Generations
 group by Operator, Gen
 order by count(*) desc
@@ -427,11 +427,63 @@ Aeroflot - Russian International Airlines Old 258
 Royal Air Force - RAF Old 199
 */
 
+/*
+4. Another phase of our analysis is the question of when accidents occur according to flight types. 
+Thus, some uncertainties related to flight safety can be eliminated.
+*/
 
+select top 5
+[Flight type],
+count(*)
+from PlaneCrashes
+group by [Flight type]
+order by count(*) desc
 
+/*
+When we look at the top 5 flight types,
+Scheduled Revenue Flight  -> 6.026
+Military  -> 4.633
+Training  -> 3.290
+Cargo  -> 2.806
+Private  -> 2.340
+total accident meets us.
+*/
 
+select
+[Flight type],
+[Flight phase],
+count([Flight phase])
+from PlaneCrashes 
+where [Flight type] = 'Scheduled Revenue Flight' 
+or [Flight type] = 'Military' 
+or [Flight type] = 'Training'
+or [Flight type] = 'Cargo'
+or [Flight type] = 'Private'
+group by [Flight type], [Flight phase]
+order by count([Flight phase]) desc
+/*
+When we dig a little deeper into our analysis, the times in which the accidents result are as in the comments.
+Scheduled Revenue Flight -> Landing (descent or approach) -> 2.632 Crashes
+Military -> Flight -> 2.059 Crashes
+Training -> Flight -> 1.608 Crashes
+Cargo -> Landing (descent or approach) -> 1.260
+Private -> Flight -> 901
+*/
 
+select 
+[Flight type],
+[Crash site],
+COUNT(*)
+from PlaneCrashes
+group by [Flight type], [Crash site]
+order by count(*) desc
+/*
+When we deepen our analysis, the region where the accident occurred in all of these flight types is the Airport (less than 10 km from airport).
+Scheduled Revenue Flight -> Airport (less than 10 km from airport) -> 3.156
+Military -> Airport (less than 10 km from airport) -> 2.047
+Training -> Airport (less than 10 km from airport) -> 1.788
+Cargo -> Airport (less than 10 km from airport) -> 1.695
+Private -> Airport (less than 10 km from airport) -> 1.128
+*/
 
-
-
-
+--I finished insights. Let's visualize this insights and analysis.
