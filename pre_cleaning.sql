@@ -1,6 +1,8 @@
 /*
 Some lines had special characters. 
 Using the Notepad++ application, these special characters have been updated using the UTF-8-BOM writing style, thus introducing special characters.
+Also, when I examined the data for discovery, I saw a value of 26% in some operator names. 
+This value was in 435 different rows. Before integrating the data into Sql Server, I replaced these values with '&' using find and replace in Excel.
 */
 
 -- This table has 24 columns and 28.536 rows.
