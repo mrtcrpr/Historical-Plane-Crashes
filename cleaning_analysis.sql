@@ -398,24 +398,34 @@ Thus, including which airline companies the planes belong to,
 the insight may arise that these companies should replace their aircraft in the inventory with new generation aircraft.
 */
 
+select count(*)
+from Plane
+where [Crash cause] = 'Technical failure'
+/*
+As you can see that there are 5.964 different crashes for technical failure reason.
+*/
+
 select 
+Operator,
 Gen,
-count(*)
-from(
-select 
-Aircraft,
-YOM,
-case when YOM >= '1990' then 'New Generation' 
-else 'Old Generation' end as Gen
-from PlaneCrashes
+count(*) as Amount
+from
+(select 
+Operator,
+case when YOM >= '1990' Then 'New' else 'Old' end as Gen
+from Plane
 where [Crash cause] = 'Technical failure' and YOM != 'Unknown') Generations
-group by Gen
+group by Operator, Gen
+order by count(*) desc
 /*
 I did a research and came to the conclusion that the airplanes produced after 1990 are the new generation. 
 It would be correct to call the others the old generation.
 According to the query I made, there are accident data for 209 new generation and 4692 old generation aircraft.
+Looking at the top 3 data:
+United States Air Force - USAF Old 349
+Aeroflot - Russian International Airlines Old 258
+Royal Air Force - RAF Old 199
 */
-
 
 
 
