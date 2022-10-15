@@ -295,6 +295,13 @@ count(*)
 from PlaneCrashes
 group by Country
 order by count(*) desc
+
+select 
+Region,
+count(*)
+from PlaneCrashes
+group by Region
+order by count(*) desc
 /*
 According to the query, accidents mostly occur in the USA, followed by the UK and Russia. 
 In addition, North America is the region with the highest number of accidents, followed by Europe and Asia.
