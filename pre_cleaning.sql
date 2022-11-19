@@ -82,6 +82,26 @@ or yom = '33'
 or yom = '943'
 
 /*
+When I uploaded the data to Tableau to verify, 
+I saw that some countries were qualified as 'unknown'.
+This values are: Ascension Island, Chagos Archipelago, Comoros Islands, 
+Dutch Antilles, Fiji Islands, French Guyana, Maldivian Islands, Guam Island, Samoa Islands, Unknown and World.
+We need to fix this problem. Because Tableau doesn't agree this values.
+*/
+select * from PlaneCrashes
+where Country like '%Ascension Island%'
+or Country like '%Chagos Archipelago%'
+or Country like '%Comoros Islands%'
+or Country like '%Dutch Antilles%'
+or Country like '%Fiji Islands%'
+or Country like '%French Guyana%'
+or Country like '%Guam Island%'
+or Country like '%Maldivian Islands%'
+or Country like '%Samoa Islands%'
+or Country like '%Unknown%'
+or Country like '%World%'
+
+/*
 Final way of my pre cleaning step, ı searched null values in the type of float columns. 
 There are 66 rows and ı don't have true values for this rows.
 For this reason ı need to delete this rows.
