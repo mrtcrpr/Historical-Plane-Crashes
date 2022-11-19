@@ -143,6 +143,58 @@ or yom = '32'
 or yom = '33'
 or yom = '943'
 
+/*
+Updated invalid Country values. 
+Also there are two issues. 
+1. It is 'Unknown' result. When we look at Schedule column. The schedule is (Kaneohe Bay - Kaneohe Bay).
+I searched on internet, i found 'Kaneohe Bay' is the bay in Hawaii. 
+Hawaii is state of United States of America. For this reason i need to set Country = 'United States of America'
+
+2. Also we have 'World' values in Country column. This values will not help us. We need to delete this rows. 
+*/
+update Plane
+set Country = 'United Kingdom'
+where Country like '%Ascension Island%'
+
+update Plane
+set Country = 'Mauritius'
+where Country like '%Chagos Archipelago%'
+
+update Plane
+set Country = 'Comoros'
+where Country like '%Comoros Islands%'
+
+update Plane
+set Country = 'Netherlands'
+where Country like '%Dutch Antilles%'
+
+update Plane
+set Country = 'Fiji'
+where Country like '%Fiji Islands%'
+
+update Plane
+set Country = 'French Guiana'
+where Country like '%French Guyana%'
+
+update Plane
+set Country = 'Guam'
+where Country like '%Guam Island%'
+
+update Plane
+set Country = 'Maldives'
+where Country like '%Maldivian Islands%'
+
+update Plane
+set Country = 'Samoa'
+where Country like '%Samoa Islands%'
+
+update Plane
+set Country = 'United States of America'
+where Country like '%Unknown%'
+
+delete from Plane
+where Country like '%World%'
+
 -- Deleted null values in type of float columns.
 delete from PlaneCrashes
 where [Crew on board] is null
