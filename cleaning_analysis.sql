@@ -262,7 +262,7 @@ DATEPART(year from date)
 from Plane
 group by DATEPART(year from date)
 order by count(*) desc
--- According to the query, the year 1944 ranks first with 942 accidents.
+-- According to the query, the year 1944 ranks first with 889 accidents.
 
 select 
 datepart(YEAR from date),
@@ -324,7 +324,7 @@ count(*)
 from Plane
 group by Aircraft, yom
 order by count(*) desc
--- According to the query, the aircraft with the most crashes was the Douglas C-47 Skytrain (DC-3) and the model year was 1944. There were 976 accidents.
+-- According to the query, the aircraft with the most crashes was the Douglas C-47 Skytrain (DC-3) and the model year was 1944. There were 948 accidents.
 
 /*
 4. To find out at what time the accidents took place.
@@ -423,7 +423,7 @@ It's more clear right now. We see 4 years top of our results.
 It's 1945, 1944, 1943 and 1942. 
 It was the time of World War II.
 In this years have 4 military flighting and 1 training values. 
-There are 1.209 different values for military flighting and 213 training values.
+There are 1.131 different values for military flighting and 208 training values.
 */
 
 /*
@@ -441,14 +441,14 @@ order by count(*) desc
 /*
 As you can see over here, there are 6 different problems meet us.
 Unknown, human factor, technical failure, weather, sabotage and other causes.
-As might be expected unknown causes are really much. They 10.051 rows.
+As might be expected unknown causes are really much. They 9.732 rows.
 We can't talk about unknown problems, because we don't have too much information about they.
 Let's talk about human factors and technical failures.
 
-Human factors have 9.145 different rows.
-Technical failures have 5.964 different rows.
+Human factors have 9.103 different rows.
+Technical failures have 5.814 different rows.
 
-Let's more dive in for technical features.
+Let's more dive in for technical failures.
 */
 
 select 
@@ -462,8 +462,8 @@ order by count(*) desc
 /*
 We searched which aircraft made a crash for technical failures.
 I share first 3 values right now. But ı will share all of them in my visualization.
-First aircraft is Douglas C-47 Skytrain (DC-3) and it has 436 different crashes. This plane is type of military transport aircraft.
-Second aircraft is Curtiss C-46 Commando and it has 200 different crashes. Also this plane too military transport aircraft.
+First aircraft is Douglas C-47 Skytrain (DC-3) and it has 424 different crashes. This plane is type of military transport aircraft.
+Second aircraft is Curtiss C-46 Commando and it has 198 different crashes. Also this plane too military transport aircraft.
 Last plane is PZL-Mielec AN-2 and it has 180 different crashes. And this plane is type of agricultural plane.
 */
 
@@ -477,9 +477,9 @@ order by count(*) desc
 /*
 I would like to investigate a little more about the Douglas C-47 Skytrain (DC-3) aircraft, which is at the top of our list. 
 Let's look at 3 operators that have this aircraft in their inventory.
-First is United States Army Air Forces - USAAF and they have 414 aircrafts of this model. This operator changed it's name to USAF in September 26, 1947.
-Second is United States Air Force - USAF and they have 225 aircrafts.
-Last one is Royal Air Force - RAF and they have 185 aircrafts.
+First is United States Army Air Forces - USAAF and they have 394 aircrafts of this model. This operator changed it's name to USAF in September 26, 1947.
+Second is United States Air Force - USAF and they have 220 aircrafts.
+Last one is Royal Air Force - RAF and they have 179 aircrafts.
 */
 
 /*
@@ -493,7 +493,7 @@ select count(*)
 from Plane
 where [Crash cause] = 'Technical failure'
 /*
-As you can see that there are 5.964 different crashes for technical failure reason.
+As you can see that there are 5.814 different crashes for technical failure reason.
 */
 
 select 
@@ -511,11 +511,11 @@ order by count(*) desc
 /*
 I did a research and came to the conclusion that the airplanes produced after 1990 are the new generation. 
 It would be correct to call the others the old generation.
-According to the query I made, there are accident data for 209 new generation and 4692 old generation aircraft.
+According to the query I made, there are accident data for 208 new generation and 4574 old generation aircraft.
 Looking at the top 3 data:
-United States Air Force - USAF Old 349
-Aeroflot - Russian International Airlines Old 258
-Royal Air Force - RAF Old 199
+United States Air Force - USAF Old 325
+Aeroflot - Russian International Airlines Old 249
+Royal Air Force - RAF Old 186
 */
 
 /*
@@ -532,11 +532,11 @@ order by count(*) desc
 
 /*
 When we look at the top 5 flight types,
-Scheduled Revenue Flight  -> 6.026
-Military  -> 4.633
-Training  -> 3.290
-Cargo  -> 2.806
-Private  -> 2.340
+Scheduled Revenue Flight  -> 5.977
+Military  -> 4.477
+Training  -> 3.254
+Cargo  -> 2.785
+Private  -> 2.292
 total accident meets us.
 */
 
@@ -555,10 +555,10 @@ order by count([Flight phase]) desc
 /*
 When we dig a little deeper into our analysis, the times in which the accidents result are as in the comments.
 Scheduled Revenue Flight -> Landing (descent or approach) -> 2.632 Crashes
-Military -> Flight -> 2.059 Crashes
-Training -> Flight -> 1.608 Crashes
+Military -> Flight -> 1.906 Crashes
+Training -> Flight -> 1.574 Crashes
 Cargo -> Landing (descent or approach) -> 1.260
-Private -> Flight -> 901
+Private -> Flight -> 854
 */
 
 select 
@@ -571,7 +571,7 @@ order by count(*) desc
 /*
 When we deepen our analysis, the region where the accident occurred in all of these flight types is the Airport (less than 10 km from airport).
 Scheduled Revenue Flight -> Airport (less than 10 km from airport) -> 3.156
-Military -> Airport (less than 10 km from airport) -> 2.047
+Military -> Airport (less than 10 km from airport) -> 2.046
 Training -> Airport (less than 10 km from airport) -> 1.788
 Cargo -> Airport (less than 10 km from airport) -> 1.695
 Private -> Airport (less than 10 km from airport) -> 1.128
