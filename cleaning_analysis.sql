@@ -1,147 +1,179 @@
 ---------------------------------------------------------------------------------CLEAN---------------------------------------------------------------------------------
 -- [Flight no#] column deleted.
-alter table PlaneCrashes
+alter table Plane
 drop column [Flight no#]
 
 -- Time column deleted.
-alter table PlaneCrashes
+alter table Plane
 drop column Time
 
 -- Null values change with 'Unknown' values.
-update PlaneCrashes
+update Plane
 set Aircraft = 'Unknown'
 where Aircraft is null
 
-update PlaneCrashes
+update Plane
 set Operator = 'Unknown'
 where Operator is null
 
-update PlaneCrashes
+update Plane
 set Registration = 'Unknown'
 where Registration is null
 
-update PlaneCrashes
+update Plane
 set [Flight phase] = 'Unknown'
 where [Flight phase] is null
 
-update PlaneCrashes
+update Plane
 set [Flight type] = 'Unknown'
 where [Flight type] is null
 
-update PlaneCrashes
+update Plane
 set Survivors = 'Unknown'
 where Survivors is null
 
-update PlaneCrashes
+update Plane
 set [Crash site] = 'Unknown'
 where [Crash site] is null
 
-update PlaneCrashes
+update Plane
 set Schedule = 'Unknown'
 where Schedule is null
 
-update PlaneCrashes
+update Plane
 set MSN = 'Unknown'
 where MSN is null
 
-update PlaneCrashes
+update Plane
 set YOM = 'Unknown'
 where YOM is null
 
-update PlaneCrashes
+update Plane
 set [Crash location] = 'Unknown'
 where [Crash location] is null
 
-update PlaneCrashes
+update Plane
 set Country = 'Unknown'
 where Country is null
 
-update PlaneCrashes
+update Plane
 set Region = 'Unknown'
 where Region is null
 
-update PlaneCrashes
+update Plane
 set Circumstances = 'Unknown'
 where Circumstances is null
 
-update PlaneCrashes
+update Plane
 set [Crash cause] = 'Unknown'
 where [Crash cause] is null
 
 -- 'NA' values change with 'Unknown' values.
-update PlaneCrashes
+update Plane
 set Aircraft = 'Unknown'
 where Aircraft = 'NA'
 
-update PlaneCrashes
+update Plane
 set Operator = 'Unknown'
 where Operator = 'NA'
 
-update PlaneCrashes
+update Plane
 set Registration = 'Unknown'
 where Registration = 'NA'
 
-update PlaneCrashes
+update Plane
 set [Flight phase] = 'Unknown'
 where [Flight phase] = 'NA'
 
-update PlaneCrashes
+update Plane
 set [Flight type] = 'Unknown'
 where [Flight type] = 'NA'
 
-update PlaneCrashes
+update Plane
 set Survivors = 'Unknown'
 where Survivors = 'NA'
 
-update PlaneCrashes
+update Plane
 set [Crash site] = 'Unknown'
 where [Crash site] = 'NA'
 
-update PlaneCrashes
+update Plane
 set Schedule = 'Unknown'
 where Schedule = 'NA'
 
-update PlaneCrashes
+update Plane
 set MSN = 'Unknown'
 where MSN = 'NA'
 
-update PlaneCrashes
+update Plane
 set YOM = 'Unknown'
 where YOM = 'NA'
 
-update PlaneCrashes
+update Plane
 set [Crash location] = 'Unknown'
 where [Crash location] = 'NA'
 
-update PlaneCrashes
+update Plane
 set Country = 'Unknown'
 where Country = 'NA'
 
-update PlaneCrashes
+update Plane
 set Region = 'Unknown'
 where Region = 'NA'
 
-update PlaneCrashes
+update Plane
 set Circumstances = 'Unknown'
 where Circumstances = 'NA'
 
-update PlaneCrashes
+update Plane
 set [Crash cause] = 'Unknown'
 where [Crash cause] = 'NA'
 
 -- Deleted insufficient datas in YOM column.
-update PlaneCrashes
+update Plane
 set yom = 'Unknown'
-where yom = '20'
+where yom = '0'
+or yom = '1'
+or yom = '2'
+or yom = '3'
+or yom = '4'
+or yom = '5'
+or yom = '6'
+or yom = '7'
+or yom = '8'
+or yom = '9'
+or yom = '10'
+or yom = '11'
+or yom = '12'
+or yom = '13'
+or yom = '14'
+or yom = '15'
+or yom = '16'
+or yom = '17'
+or yom = '18'
+or yom = '19'
+or yom = '20'
 or yom = '21'
 or yom = '22'
 or yom = '23'
-or yom = '19567'
+or yom = '24'
+or yom = '25'
+or yom = '26'
+or yom = '27'
+or yom = '28'
+or yom = '29'
 or yom = '30'
 or yom = '31'
 or yom = '32'
 or yom = '33'
+or yom = '170'
+or yom = '254'
 or yom = '943'
+or yom = '1645'
+or yom = '1651'
+or yom = '12928'
+or yom = '14949'
+or yom = '19567'
 
 /*
 Updated invalid Country values. 
@@ -196,7 +228,7 @@ delete from Plane
 where Country like '%World%'
 
 -- Deleted null values in type of float columns.
-delete from PlaneCrashes
+delete from Plane
 where [Crew on board] is null
 or [Crew fatalities] is null
 or [Pax on board] is null
@@ -212,7 +244,7 @@ https://aviation-safety.net/database/record.php?id=20080901-1
 And YOM data that should be belong to 1990.
 I fixed this situation.
 */
-update PlaneCrashes
+update Plane
 set YOM = '1990'
 where YOM = '1900'
 
@@ -227,7 +259,7 @@ where YOM = '1900'
 select 
 count(*),
 DATEPART(year from date)
-from PlaneCrashes
+from Plane
 group by DATEPART(year from date)
 order by count(*) desc
 -- According to the query, the year 1944 ranks first with 942 accidents.
@@ -236,7 +268,7 @@ select
 datepart(YEAR from date),
 [Flight type],
 count(*)
-from PlaneCrashes
+from Plane
 where datepart(YEAR from date) = '1944'
 group by datepart(YEAR from date), [Flight type] 
 -- When we go a little deeper this year, most of the crashed planes are military and bombing planes.
@@ -272,7 +304,7 @@ when DATEPART(MONTH from date) =  9 then 'Autumn'
 when DATEPART(MONTH from date) = 10 then 'Autumn'
 when DATEPART(MONTH from date) = 11 then 'Autumn'
 end as "Q4"
-from PlaneCrashes
+from Plane
 ) months
 group by Q1,Q2, Q3, Q4)
 /*
@@ -289,7 +321,7 @@ select
 Aircraft,
 yom,
 count(*)
-from PlaneCrashes
+from Plane
 group by Aircraft, yom
 order by count(*) desc
 -- According to the query, the aircraft with the most crashes was the Douglas C-47 Skytrain (DC-3) and the model year was 1944. There were 976 accidents.
@@ -301,7 +333,7 @@ order by count(*) desc
 select 
 [Flight phase],
 count(*)
-from PlaneCrashes
+from Plane
 group by [Flight phase]
 /*
 According to the query, the most common accident occurs during the flight. 
@@ -315,7 +347,7 @@ The next happens during the landing. The least number of accidents happen during
 select 
 [Crash cause],
 count(*)
-from PlaneCrashes
+from Plane
 group by [Crash cause]
 /*
 While the majority of accidents are caused by unknown reasons, 
@@ -330,7 +362,7 @@ weather conditions, terrorism and other reasons.
 select 
 [Flight type],
 count(*)
-from PlaneCrashes
+from Plane
 group by [Flight type]
 order by count(*) desc
 /*
@@ -344,14 +376,14 @@ According to the query, accidents mostly happen on scheduled flights. This is fo
 select 
 Country,
 count(*)
-from PlaneCrashes
+from Plane
 group by Country
 order by count(*) desc
 
 select 
 Region,
 count(*)
-from PlaneCrashes
+from Plane
 group by Region
 order by count(*) desc
 /*
@@ -365,7 +397,7 @@ In addition, North America is the region with the highest number of accidents, f
 
 (select
 sum([Total fatalities])
-from PlaneCrashes)
+from Plane)
 /*
 According to all records, a total of 158828 people lost their lives.
 */
@@ -383,7 +415,7 @@ select
 DATEPART(year from date),
 [Flight type],
 COUNT([Flight type])
-from PlaneCrashes
+from Plane
 group by DATEPART(year from date), [Flight type]
 order by count([Flight type]) desc
 /*
@@ -403,7 +435,7 @@ Technical failure, weather, human factor or what. We need this answer.
 select 
 [Crash cause],
 count(*)
-from PlaneCrashes
+from Plane
 group by [Crash cause]
 order by count(*) desc
 /*
@@ -422,7 +454,7 @@ Let's more dive in for technical features.
 select 
 Aircraft,
 count(*)
-from PlaneCrashes
+from Plane
 where [Crash cause] = 'Technical failure'
 group by Aircraft
 order by count(*) desc
@@ -438,7 +470,7 @@ Last plane is PZL-Mielec AN-2 and it has 180 different crashes. And this plane i
 select 
 operator,
 count(*)
-from PlaneCrashes
+from Plane
 where Aircraft = 'Douglas C-47 Skytrain (DC-3)'
 group by Operator
 order by count(*) desc
@@ -458,7 +490,7 @@ the insight may arise that these companies should replace their aircraft in the 
 */
 
 select count(*)
-from PlaneCrashes
+from Plane
 where [Crash cause] = 'Technical failure'
 /*
 As you can see that there are 5.964 different crashes for technical failure reason.
@@ -472,7 +504,7 @@ from
 (select 
 Operator,
 case when YOM >= '1990' Then 'New' else 'Old' end as Gen
-from PlaneCrashes
+from Plane
 where [Crash cause] = 'Technical failure' and YOM != 'Unknown') Generations
 group by Operator, Gen
 order by count(*) desc
@@ -494,7 +526,7 @@ Thus, some uncertainties related to flight safety can be eliminated.
 select top 5
 [Flight type],
 count(*)
-from PlaneCrashes
+from Plane
 group by [Flight type]
 order by count(*) desc
 
@@ -512,7 +544,7 @@ select
 [Flight type],
 [Flight phase],
 count([Flight phase])
-from PlaneCrashes 
+from Plane 
 where [Flight type] = 'Scheduled Revenue Flight' 
 or [Flight type] = 'Military' 
 or [Flight type] = 'Training'
@@ -533,7 +565,7 @@ select
 [Flight type],
 [Crash site],
 COUNT(*)
-from PlaneCrashes
+from Plane
 group by [Flight type], [Crash site]
 order by count(*) desc
 /*
