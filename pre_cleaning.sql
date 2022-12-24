@@ -22,8 +22,7 @@ FROM
   Plane
   
   /*
-   Time
-   This column has a lot of null values. Also we don't need time values of this crashes for our analysis.
+   Time column has a lot of null values. Also we don't need time values of this crashes for our analysis.
    */
 SELECT
   Time
@@ -58,8 +57,8 @@ WHERE
   OR [Total fatalities] IS NULL
   OR Circumstances IS NULL
   OR [Crash cause] IS NULL 
-  
   -- Also there are 12.189 rows have 'NA' values. It don't need to be change but, I think 'Unknown' is more clear than 'NA'. So I will change.
+  
 SELECT
   *
 FROM
