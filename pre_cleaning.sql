@@ -59,7 +59,7 @@ WHERE
   OR Circumstances IS NULL
   OR [Crash cause] IS NULL 
   
-  -- Also there are 12.189 rows have 'NA' values. It don't need to be change but, ı think 'Unknown' is more clear than 'NA'. So ı will change.
+  -- Also there are 12.189 rows have 'NA' values. It don't need to be change but, I think 'Unknown' is more clear than 'NA'. So I will change.
 SELECT
   *
 FROM
@@ -159,9 +159,9 @@ WHERE
   OR Country LIKE '%World%'
   
   /*
-   Final way of my pre cleaning step, ı searched null values in the type of float columns. 
-   There are 66 rows and ı don't have true values for this rows.
-   For this reason ı need to delete this rows.
+   Final way of my pre-cleaning step, I searched null values in the type of float columns. 
+   There are 66 rows and I don't have true values for this rows.
+   For this reason I need to delete this rows.
    */
 SELECT
   *
