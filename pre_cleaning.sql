@@ -1,148 +1,178 @@
 /*
-Some lines had special characters. 
-Using the Notepad++ application, these special characters have been updated using the UTF-8-BOM writing style, thus introducing special characters.
-Also, when I examined the data for discovery, I saw a value of 26% in some operator names. 
-This value was in 435 different rows. Before integrating the data into Sql Server, I replaced these values with '&' using find and replace in Excel.
-*/
-
+ Some lines had special characters. 
+ Using the Notepad++ application, these special characters have been updated using the UTF-8-BOM writing style, thus introducing special characters.
+ Also, when I examined the data for discovery, I saw a value of 26% in some operator names. 
+ This value was in 435 different rows. Before integrating the data into Sql Server, I replaced these values with '&' using find and replace in Excel.
+ */
+ 
 -- This table has 24 columns and 28.536 rows.
-select * from Plane
-
-/*
-[Flight no#]
-This column have 1 distinct value. It's 'NA'.
-We don't need this column.
-*/
-select distinct [Flight no#] from Plane
-
-/*
-Time
-This column has a lot of null values. Also we don't need time values of this crashes for our analysis.
-*/
-select Time from Plane
--- [Flight no#] and Time columns need to be deleted.
-
--- Also we don't want to null values. If rows are really critic for our analysis, we don't delete this rows. Just change with 'Unknown' text.
-select * from Plane
-where Aircraft is null 
-or Operator is null
-or Registration is null
-or [Flight phase] is null
-or [Flight type] is null
-or Survivors is null
-or [Crash site] is null
-or Schedule is null
-or MSN is null
-or YOM is null
-or [Crash location] is null
-or Country is null
-or Region is null
-or [Crew on board] is null
-or [Crew fatalities] is null
-or [Pax on board] is null
-or [PAX fatalities] is null
-or [Other fatalities] is null
-or [Total fatalities] is null
-or Circumstances is null
-or [Crash cause] is null
-
--- Also there are 12.189 rows have 'NA' values. It don't need to be change but, ı think 'Unknown' is more clear than 'NA'. So ı will change.
-select * from Plane
-where Aircraft = 'NA'
-or Operator = 'NA'
-or Registration = 'NA'
-or [Flight phase] = 'NA'
-or [Flight type] = 'NA'
-or Survivors = 'NA'
-or [Crash site] = 'NA'
-or Schedule= 'NA'
-or MSN = 'NA'
-or YOM = 'NA'
-or [Crash location] = 'NA'
-or Country = 'NA'
-or Region = 'NA'
-or Circumstances = 'NA'
-or [Crash cause] = 'NA'
-
-/*
-Some YOM rows have insufficient data. 
-This YOM column has year of model of these planes. 
-For this reason this planes model years wouldn't be ('21','31','943' .etc) 
-*/
-select * from Plane
-where yom = '0'
-or yom = '1'
-or yom = '2'
-or yom = '3'
-or yom = '4'
-or yom = '5'
-or yom = '6'
-or yom = '7'
-or yom = '8'
-or yom = '9'
-or yom = '10'
-or yom = '11'
-or yom = '12'
-or yom = '13'
-or yom = '14'
-or yom = '15'
-or yom = '16'
-or yom = '17'
-or yom = '18'
-or yom = '19'
-or yom = '20'
-or yom = '21'
-or yom = '22'
-or yom = '23'
-or yom = '24'
-or yom = '25'
-or yom = '26'
-or yom = '27'
-or yom = '28'
-or yom = '29'
-or yom = '30'
-or yom = '31'
-or yom = '32'
-or yom = '33'
-or yom = '170'
-or yom = '254'
-or yom = '943'
-or yom = '1645'
-or yom = '1651'
-or yom = '12928'
-or yom = '14949'
-or yom = '19567'
-/*
-When I uploaded the data to Tableau to verify, 
-I saw that some countries were qualified as 'unknown'.
-This values are: Ascension Island, Chagos Archipelago, Comoros Islands, 
-Dutch Antilles, Fiji Islands, French Guyana, Maldivian Islands, Guam Island, Samoa Islands, Unknown and World.
-We need to fix this problem. Because Tableau doesn't agree this values.
-*/
-select * from Plane
-where Country like '%Ascension Island%'
-or Country like '%Chagos Archipelago%'
-or Country like '%Comoros Islands%'
-or Country like '%Dutch Antilles%'
-or Country like '%Fiji Islands%'
-or Country like '%French Guyana%'
-or Country like '%Guam Island%'
-or Country like '%Maldivian Islands%'
-or Country like '%Samoa Islands%'
-or Country like '%Unknown%'
-or Country like '%World%'
-
-/*
-Final way of my pre cleaning step, ı searched null values in the type of float columns. 
-There are 66 rows and ı don't have true values for this rows.
-For this reason ı need to delete this rows.
-*/
-select * from Plane
-where [Crew on board] is null
-or [Crew fatalities] is null
-or [Pax on board] is null
-or [PAX fatalities] is null
-or [Other fatalities] is null
-or [Total fatalities] is null
-
--- I finished pre cleaning phase.
+SELECT
+  *
+FROM
+  Plane
+  
+  /*
+   [Flight no#]
+   This column have 1 distinct value. It's 'NA'.
+   We don't need this column.
+   */
+SELECT
+  DISTINCT [Flight no#]
+FROM
+  Plane
+  
+  /*
+   Time
+   This column has a lot of null values. Also we don't need time values of this crashes for our analysis.
+   */
+SELECT
+  Time
+FROM
+  Plane 
+  -- [Flight no#] and Time columns need to be deleted.
+  
+  -- Also we don't want to null values. If rows are really critic for our analysis, we don't delete this rows. Just change with 'Unknown' text.
+SELECT
+  *
+FROM
+  Plane
+WHERE
+  Aircraft IS NULL
+  OR Operator IS NULL
+  OR Registration IS NULL
+  OR [Flight phase] IS NULL
+  OR [Flight type] IS NULL
+  OR Survivors IS NULL
+  OR [Crash site] IS NULL
+  OR Schedule IS NULL
+  OR MSN IS NULL
+  OR YOM IS NULL
+  OR [Crash location] IS NULL
+  OR Country IS NULL
+  OR Region IS NULL
+  OR [Crew on board] IS NULL
+  OR [Crew fatalities] IS NULL
+  OR [Pax on board] IS NULL
+  OR [PAX fatalities] IS NULL
+  OR [Other fatalities] IS NULL
+  OR [Total fatalities] IS NULL
+  OR Circumstances IS NULL
+  OR [Crash cause] IS NULL 
+  
+  -- Also there are 12.189 rows have 'NA' values. It don't need to be change but, ı think 'Unknown' is more clear than 'NA'. So ı will change.
+SELECT
+  *
+FROM
+  Plane
+WHERE
+  Aircraft = 'NA'
+  OR Operator = 'NA'
+  OR Registration = 'NA'
+  OR [Flight phase] = 'NA'
+  OR [Flight type] = 'NA'
+  OR Survivors = 'NA'
+  OR [Crash site] = 'NA'
+  OR Schedule = 'NA'
+  OR MSN = 'NA'
+  OR YOM = 'NA'
+  OR [Crash location] = 'NA'
+  OR Country = 'NA'
+  OR Region = 'NA'
+  OR Circumstances = 'NA'
+  OR [Crash cause] = 'NA'
+  
+  /*
+   Some YOM rows have insufficient data. 
+   This YOM column has year of model of these planes. 
+   For this reason this planes model years wouldn't be ('21','31','943' .etc) 
+   */
+SELECT
+  *
+FROM
+  Plane
+WHERE
+  yom = '0'
+  OR yom = '1'
+  OR yom = '2'
+  OR yom = '3'
+  OR yom = '4'
+  OR yom = '5'
+  OR yom = '6'
+  OR yom = '7'
+  OR yom = '8'
+  OR yom = '9'
+  OR yom = '10'
+  OR yom = '11'
+  OR yom = '12'
+  OR yom = '13'
+  OR yom = '14'
+  OR yom = '15'
+  OR yom = '16'
+  OR yom = '17'
+  OR yom = '18'
+  OR yom = '19'
+  OR yom = '20'
+  OR yom = '21'
+  OR yom = '22'
+  OR yom = '23'
+  OR yom = '24'
+  OR yom = '25'
+  OR yom = '26'
+  OR yom = '27'
+  OR yom = '28'
+  OR yom = '29'
+  OR yom = '30'
+  OR yom = '31'
+  OR yom = '32'
+  OR yom = '33'
+  OR yom = '170'
+  OR yom = '254'
+  OR yom = '943'
+  OR yom = '1645'
+  OR yom = '1651'
+  OR yom = '12928'
+  OR yom = '14949'
+  OR yom = '19567'
+  
+  /*
+   When I uploaded the data to Tableau to verify, 
+   I saw that some countries were qualified as 'unknown'.
+   This values are: Ascension Island, Chagos Archipelago, Comoros Islands, 
+   Dutch Antilles, Fiji Islands, French Guyana, Maldivian Islands, Guam Island, Samoa Islands, Unknown and World.
+   We need to fix this problem. Because Tableau doesn't agree this values.
+   */
+SELECT
+  *
+FROM
+  Plane
+WHERE
+  Country LIKE '%Ascension Island%'
+  OR Country LIKE '%Chagos Archipelago%'
+  OR Country LIKE '%Comoros Islands%'
+  OR Country LIKE '%Dutch Antilles%'
+  OR Country LIKE '%Fiji Islands%'
+  OR Country LIKE '%French Guyana%'
+  OR Country LIKE '%Guam Island%'
+  OR Country LIKE '%Maldivian Islands%'
+  OR Country LIKE '%Samoa Islands%'
+  OR Country LIKE '%Unknown%'
+  OR Country LIKE '%World%'
+  
+  /*
+   Final way of my pre cleaning step, ı searched null values in the type of float columns. 
+   There are 66 rows and ı don't have true values for this rows.
+   For this reason ı need to delete this rows.
+   */
+SELECT
+  *
+FROM
+  Plane
+WHERE
+  [Crew on board] IS NULL
+  OR [Crew fatalities] IS NULL
+  OR [Pax on board] IS NULL
+  OR [PAX fatalities] IS NULL
+  OR [Other fatalities] IS NULL
+  OR [Total fatalities] IS NULL 
+  
+  -- I finished pre cleaning phase.
