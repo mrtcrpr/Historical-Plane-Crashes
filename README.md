@@ -1,7 +1,5 @@
 # Historical-Plane-Crashes
 
-# About
-
 This project is an analysis of plane crashes since 1918. There is only one question for which we seek an answer: How safe are the flights we all choose?
 
 # Dataset 
